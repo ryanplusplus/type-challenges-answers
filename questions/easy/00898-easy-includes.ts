@@ -18,10 +18,10 @@
 
 /* _____________ Your Code Here _____________ */
 
-type Includes<T extends readonly any[], U> = any
+type Includes<T extends readonly unknown[], U> = T extends [infer First, ...infer Rest] ? (Equal<First, U> extends true ? true : Includes<Rest, U>) : false;
 
 /* _____________ Test Cases _____________ */
-import type { Equal, Expect } from '@type-challenges/utils'
+import type { Equal, Expect } from '@type-challenges/utils';
 
 type cases = [
   Expect<Equal<Includes<['Kars', 'Esidisi', 'Wamuu', 'Santana'], 'Kars'>, true>>,
@@ -40,7 +40,7 @@ type cases = [
   Expect<Equal<Includes<[1 | 2], 1>, false>>,
   Expect<Equal<Includes<[null], undefined>, false>>,
   Expect<Equal<Includes<[undefined], null>, false>>,
-]
+];
 
 /* _____________ Further Steps _____________ */
 /*
