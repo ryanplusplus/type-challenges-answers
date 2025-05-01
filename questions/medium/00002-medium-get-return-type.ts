@@ -25,7 +25,7 @@
 
 /* _____________ Your Code Here _____________ */
 
-type MyReturnType<T extends Function> = T extends (...args: infer _A) => infer R ? R : never;
+type MyReturnType<T extends (...args: never[]) => unknown> = T extends (...args: never[]) => infer R ? R : never;
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '@type-challenges/utils';
