@@ -24,17 +24,19 @@
 
 /* _____________ Your Code Here _____________ */
 
-type Last<T extends any[]> = any
+// type Last<T extends unknown[]> = T extends [infer First, ...infer Rest] ? Rest['length'] extends 0 ? First : Last<Rest> : never;
+// type Last<T extends unknown[]> = T['length'] extends 1 ? T[0] : T extends [infer _, ...infer Rest] ? Last<Rest> : never;
+type Last<T extends unknown[]> = T extends [...unknown[], infer Last] ? Last : never;
 
 /* _____________ Test Cases _____________ */
-import type { Equal, Expect } from '@type-challenges/utils'
+import type { Equal, Expect } from '@type-challenges/utils';
 
 type cases = [
   Expect<Equal<Last<[]>, never>>,
   Expect<Equal<Last<[2]>, 2>>,
   Expect<Equal<Last<[3, 2, 1]>, 1>>,
   Expect<Equal<Last<[() => 123, { a: string }]>, { a: string }>>,
-]
+];
 
 /* _____________ Further Steps _____________ */
 /*
